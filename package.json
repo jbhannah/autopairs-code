@@ -19,6 +19,16 @@
     ],
     "main": "./out/extension",
     "contributes": {
+        "commands": [
+            {
+                "command": "autopairs-code.toggleAutoPairs",
+                "title": "Toggle AutoPairs"
+            },
+            {
+                "command": "autopairs-code.toggleAutoPairsSpacing",
+                "title": "Toggle AutoPairs bracket spacing"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "AutoPairs configuration",
