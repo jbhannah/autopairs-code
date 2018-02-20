@@ -4,7 +4,7 @@ Brings additional [AutoPairs][]-like functionality to Visual Studio Code.
 
 ## Features
 
-* Automatically add and remove padding inside pairs of curly braces, square
+* Automatically add and remove spacing inside pairs of curly braces, square
   brackets, and parentheses.
 
     ```text
@@ -20,19 +20,17 @@ Brings additional [AutoPairs][]-like functionality to Visual Studio Code.
 
 ## Requirements
 
+This extension requires VS Code version 1.20.0 or higher.
+
 ## Extension Settings
 
 This extension contributes the following settings:
 
-* `autopairs-code.enable`: enable/disable this extension
-* `autopairs-code.spacing.enable`: enable/disable bracket spacing
-* `autopairs-code.spacing.enableForBraces`: enable spacing for curly braces `{}`
-* `autopairs-code.spacing.enableForBrackets`: enable spacing for square brackets `[]`
-* `autopairs-code.spacing.enableForParentheses`: enable spacing for parentheses `()`
-
-## Known Issues
-
-## Release Notes
+* `autopairs-code.enable`: Set to false to completely disable AutoPairs behavior.
+* `autopairs-code.spacing.enable`: Set to false to completely disable spacing inside bracket pairs.
+* `autopairs-code.spacing.enableForBraces`: Enable spacing inside curly braces `{}`.
+* `autopairs-code.spacing.enableForBrackets`: Enable spacing inside square brackets `[]`.
+* `autopairs-code.spacing.enableForParentheses`: Enable spacing inside parentheses `()`.
 
 ## Credits
 

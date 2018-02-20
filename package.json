@@ -31,22 +31,22 @@
                 "autopairs-code.spacing.enable": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable bracket spacing for bracket pairs."
+                    "description": "Set to false to completely disable spacing inside bracket pairs."
                 },
                 "autopairs-code.spacing.enableForBraces": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable bracket spacing for curly braces {}."
+                    "description": "Enable bracket spacing inside curly braces {}."
                 },
                 "autopairs-code.spacing.enableForBrackets": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable bracket spacing for square brackets []."
+                    "description": "Enable bracket spacing inside square brackets []."
                 },
                 "autopairs-code.spacing.enableForParentheses": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable bracket spacing for parentheses ()."
+                    "description": "Enable bracket spacing inside parentheses ()."
                 }
             }
         }
