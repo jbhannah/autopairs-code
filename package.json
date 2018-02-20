@@ -2,10 +2,14 @@
     "name": "autopairs-code",
     "displayName": "AutoPairs",
     "description": "AutoPairs-like behavior for VS Code",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "jbhannah",
     "engines": {
         "vscode": "^1.20.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jbhannah/autopairs-code"
     },
     "categories": [
         "Formatters"

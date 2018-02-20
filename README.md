@@ -11,6 +11,9 @@ Brings additional [AutoPairs][]-like functionality to Visual Studio Code.
     input: {|} (press <SPACE> at |)
     output: { | }
 
+    input: { | } (press <BACKSPACE> at |)
+    output: {|}
+
     input: "|" (press <SPACE> at |)
     output: " |"
     ```
