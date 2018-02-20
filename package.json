@@ -24,20 +24,25 @@
                     "default": true,
                     "description": "Set to false to completely disable AutoPairs behavior."
                 },
-                "autopairs-code.enableForBraces": {
+                "autopairs-code.spacing.enable": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable AutoPairs for curly braces {}."
+                    "description": "Enable bracket spacing for bracket pairs."
                 },
-                "autopairs-code.enableForBrackets": {
+                "autopairs-code.spacing.enableForBraces": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable AutoPairs for square brackets []."
+                    "description": "Enable bracket spacing for curly braces {}."
                 },
-                "autopairs-code.enableForParentheses": {
+                "autopairs-code.spacing.enableForBrackets": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable AutoPairs for parentheses ()."
+                    "description": "Enable bracket spacing for square brackets []."
+                },
+                "autopairs-code.spacing.enableForParentheses": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable bracket spacing for parentheses ()."
                 }
             }
         }

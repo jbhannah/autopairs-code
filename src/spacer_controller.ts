@@ -17,7 +17,7 @@ export default class SpacerController {
         vscode.workspace.onDidChangeConfiguration(this.onDidChangeConfiguration, this, subscriptions);
         vscode.workspace.onDidChangeTextDocument(this.onDidChangeTextDocument, this, subscriptions);
 
-        this.config = vscode.workspace.getConfiguration('autopairs-code');
+        this.config = this.getConfig();
         this.disposable = vscode.Disposable.from(...subscriptions);
     }
 
@@ -29,8 +29,12 @@ export default class SpacerController {
         return this.spacer.trySpace(open, close, line) || this.spacer.tryUnspace(open, close, line);
     }
 
+    private getConfig(): vscode.WorkspaceConfiguration {
+        return vscode.workspace.getConfiguration('autopairs-code.spacing');
+    }
+
     private onDidChangeConfiguration() {
-        this.config = vscode.workspace.getConfiguration('autopairs-code');
+        this.config = this.getConfig();
     }
 
     private onDidChangeTextDocument() {

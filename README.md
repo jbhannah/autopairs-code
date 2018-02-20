@@ -22,9 +22,10 @@ Brings additional [AutoPairs][]-like functionality to Visual Studio Code.
 This extension contributes the following settings:
 
 * `autopairs-code.enable`: enable/disable this extension
-* `autopairs-code.enableForBraces`: enable for curly braces `{}`
-* `autopairs-code.enableForBrackets`: enable for square brackets `[]`
-* `autopairs-code.enableForParentheses`: enable for parentheses `()`
+* `autopairs-code.spacing.enable`: enable/disable bracket spacing
+* `autopairs-code.spacing.enableForBraces`: enable spacing for curly braces `{}`
+* `autopairs-code.spacing.enableForBrackets`: enable spacing for square brackets `[]`
+* `autopairs-code.spacing.enableForParentheses`: enable spacing for parentheses `()`
 
 ## Known Issues
 
