@@ -18,6 +18,8 @@ Brings additional [AutoPairs][]-like functionality to Visual Studio Code.
     output: " |"
     ```
 
+* Commands to globally toggle the extension and bracket spacing.
+
 ## Requirements
 
 This extension requires VS Code version 1.20.0 or higher.
