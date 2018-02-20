@@ -1,6 +1,6 @@
 {
     "name": "autopairs-code",
-    "displayName": "AutoPairs-code",
+    "displayName": "AutoPairs",
     "description": "AutoPairs-like behavior for VS Code",
     "version": "0.0.1",
     "publisher": "jbhannah",
@@ -8,17 +8,24 @@
         "vscode": "^1.20.0"
     },
     "categories": [
-        "Other"
+        "Formatters"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "*"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
-        }]
+        "configuration": {
+            "type": "object",
+            "title": "AutoPairs configuration",
+            "properties": {
+                "autopairs-code.enable": {
+                    "type": "boolean",
+                    "default": "true",
+                    "description": "Set to false to completely disable AutoPairs behavior."
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
