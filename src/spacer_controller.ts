@@ -37,8 +37,13 @@ export default class SpacerController {
         this.config = this.getConfig();
     }
 
-    private onDidChangeTextDocument() {
+    private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
         if (!this.config.get('enable', true)) { return; }
+
+        if (e.contentChanges.length < 1) { return; }
+
+        const change = e.contentChanges[0];
+        if (change.text !== '' && change.text !== ' ') { return; }
 
         const editor = vscode.window.activeTextEditor;
         if (!editor || !editor.selection.isEmpty) { return; }
