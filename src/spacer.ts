@@ -1,7 +1,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { getPosition } from './util';
+import { getPosition, setSelection } from './util';
 
 export default class Spacer {
     dispose () {}
@@ -34,12 +34,6 @@ export default class Spacer {
         return true;
     }
 
-    private setSelection(editor: vscode.TextEditor, line: number, position: number) {
-        const newPosition = new vscode.Position(line, position);
-        const newSelection = new vscode.Selection(newPosition, newPosition);
-        editor.selection = newSelection;
-    }
-
     private space(position: vscode.Position) {
         const editor = vscode.window.activeTextEditor;
         if (!editor) { return; }
@@ -47,7 +41,7 @@ export default class Spacer {
         const range = new vscode.Range(position.line, position.character + 1, position.line, position.character + 1);
 
         editor.edit(edit => edit.replace(range, " "));
-        this.setSelection(editor, position.line, position.character + 1);
+        setSelection(editor, position.line, position.character + 1);
     }
 
     private unspace(position: vscode.Position) {
@@ -57,6 +51,6 @@ export default class Spacer {
         const range = new vscode.Range(position.line, position.character - 1, position.line, position.character);
 
         editor.edit(edit => edit.replace(range, ""));
-        this.setSelection(editor, position.line, position.character - 1);
+        setSelection(editor, position.line, position.character - 1);
     }
 }
