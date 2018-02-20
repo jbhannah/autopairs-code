@@ -21,8 +21,23 @@
             "properties": {
                 "autopairs-code.enable": {
                     "type": "boolean",
-                    "default": "true",
+                    "default": true,
                     "description": "Set to false to completely disable AutoPairs behavior."
+                },
+                "autopairs-code.enableForBraces": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable AutoPairs for curly braces {}."
+                },
+                "autopairs-code.enableForBrackets": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable AutoPairs for square brackets []."
+                },
+                "autopairs-code.enableForParentheses": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable AutoPairs for parentheses ()."
                 }
             }
         }
