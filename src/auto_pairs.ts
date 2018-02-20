@@ -4,15 +4,23 @@ import * as vscode from 'vscode';
 import SpacerController from './spacer_controller';
 
 export default class AutoPairs {
+    private config: vscode.WorkspaceConfiguration;
     private disposable: vscode.Disposable;
     private spacerController: SpacerController | null = null;
 
     constructor() {
         let subscriptions: vscode.Disposable[] = [];
         vscode.workspace.onDidChangeConfiguration(this.onDidChangeConfiguration, this, subscriptions);
+
+        const toggleAutoPairsCommand = vscode.commands.registerCommand('autopairs-code.toggleAutoPairs', this.toggleAutoPairs, this);
+        subscriptions.push(toggleAutoPairsCommand);
+
+        const toggleAutoPairsSpacingCommand = vscode.commands.registerCommand('autopairs-code.toggleAutoPairsSpacing', this.toggleAutoPairsSpacing, this);
+        subscriptions.push(toggleAutoPairsSpacingCommand);
+
         this.disposable = vscode.Disposable.from(...subscriptions);
 
-        this.getConfig();
+        this.config = this.getConfig();
     }
 
     dispose() {
@@ -34,6 +42,14 @@ export default class AutoPairs {
     }
 
     private onDidChangeConfiguration() {
-        this.getConfig();
+        this.config = this.getConfig();
+    }
+
+    private toggleAutoPairs() {
+        this.config.update('enable', !this.config.get('enable', true), true);
+    }
+
+    private toggleAutoPairsSpacing() {
+        this.config.update('spacing.enable', !this.config.get('spacing.enable', true), true);
     }
 }
