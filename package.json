@@ -22,11 +22,15 @@
         "commands": [
             {
                 "command": "autopairs-code.toggleAutoPairs",
-                "title": "Toggle AutoPairs"
+                "title": "AutoPairs: Toggle AutoPairs"
+            },
+            {
+                "command": "autopairs-code.toggleAutoPairsJumping",
+                "title": "AutoPairs: Toggle jumping over closing bracket"
             },
             {
                 "command": "autopairs-code.toggleAutoPairsSpacing",
-                "title": "Toggle AutoPairs bracket spacing"
+                "title": "AutoPairs: Toggle bracket spacing"
             }
         ],
         "configuration": {
@@ -37,6 +41,26 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Set to false to completely disable AutoPairs behavior."
+                },
+                "autopairs-code.jumping.enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to false to completely disable jumping over closing brackets."
+                },
+                "autopairs-code.jumping.enableForBraces": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable jumping over closing curly braces {}."
+                },
+                "autopairs-code.jumping.enableForBrackets": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable jumping over closing square brackets []."
+                },
+                "autopairs-code.jumping.enableForParentheses": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable jumping over closing parentheses ()."
                 },
                 "autopairs-code.spacing.enable": {
                     "type": "boolean",

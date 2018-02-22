@@ -2,10 +2,12 @@
 
 import * as vscode from 'vscode';
 import SpacerController from './spacer_controller';
+import JumperController from './jumper_controller';
 
 export default class AutoPairs {
     private config: vscode.WorkspaceConfiguration;
     private disposable: vscode.Disposable;
+    private jumperController: JumperController | null = null;
     private spacerController: SpacerController | null = null;
 
     constructor() {
@@ -14,6 +16,9 @@ export default class AutoPairs {
 
         const toggleAutoPairsCommand = vscode.commands.registerCommand('autopairs-code.toggleAutoPairs', this.toggleAutoPairs, this);
         subscriptions.push(toggleAutoPairsCommand);
+
+        const toggleAutoPairsJumpingCommand = vscode.commands.registerCommand('autopairs-code.toggleAutoPairsJumping', this.toggleAutoPairsJumping, this);
+        subscriptions.push(toggleAutoPairsJumpingCommand);
 
         const toggleAutoPairsSpacingCommand = vscode.commands.registerCommand('autopairs-code.toggleAutoPairsSpacing', this.toggleAutoPairsSpacing, this);
         subscriptions.push(toggleAutoPairsSpacingCommand);
@@ -24,6 +29,7 @@ export default class AutoPairs {
     }
 
     dispose() {
+        if (this.jumperController) { this.jumperController.dispose(); }
         if (this.spacerController) { this.spacerController.dispose(); }
         this.disposable.dispose();
     }
@@ -38,6 +44,13 @@ export default class AutoPairs {
             this.spacerController = null;
         }
 
+        if (config.get('enable', true) && !this.jumperController && config.get('jumping.enable', true)) {
+            this.jumperController = new JumperController();
+        } else if (this.jumperController && (!config.get('enable', true) || !config.get('jumping.enable', true))) {
+            this.jumperController.dispose();
+            this.jumperController = null;
+        }
+
         return config;
     }
 
@@ -45,11 +58,31 @@ export default class AutoPairs {
         this.config = this.getConfig();
     }
 
+    private showStatusMessage(message: string) {
+        vscode.window.setStatusBarMessage(`AutoPairs: ${message}`, 2000);
+    }
+
     private toggleAutoPairs() {
-        this.config.update('enable', !this.config.get('enable', true), true);
+        const newValue = this.toggleConfig('enable');
+        const message = newValue ? 'enabled' : 'disabled';
+        this.showStatusMessage(`Extension ${message}`);
+    }
+
+    private toggleAutoPairsJumping() {
+        const newValue = this.toggleConfig('jumping.enable');
+        const message = newValue ? 'enabled' : 'disabled';
+        this.showStatusMessage(`Jumping ${message}`);
     }
 
     private toggleAutoPairsSpacing() {
-        this.config.update('spacing.enable', !this.config.get('spacing.enable', true), true);
+        const newValue = this.toggleConfig('spacing.enable');
+        const message = newValue ? 'enabled' : 'disabled';
+        this.showStatusMessage(`Spacing ${message}`);
+    }
+
+    private toggleConfig(section: string): boolean {
+        const newValue = !this.config.get(section, true);
+        this.config.update(section, newValue, true);
+        return newValue;
     }
 }
