@@ -4,6 +4,7 @@
     "description": "AutoPairs-like behavior for VS Code",
     "version": "0.2.0",
     "publisher": "jbhannah",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.20.0"
     },
