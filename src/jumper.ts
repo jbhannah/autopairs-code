@@ -1,19 +1,17 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { getPosition } from './util';
 
 export default class Jumper {
     dispose() {}
 
     public tryJump(close: string): boolean {
-        const position = getPosition();
-        if (!position) { return false; }
-
         const editor = vscode.window.activeTextEditor;
-        if (!editor) { return false; }
+        if (!editor || !editor.selection.isEmpty) { return false; }
 
+        const position = editor.selection.active;
         const document = editor.document;
+
         const eof = document.lineAt(document.lineCount - 1).range.end;
         const range = new vscode.Range(position.translate(0, 1), eof);
         const text = document.getText(range);
