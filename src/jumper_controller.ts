@@ -37,8 +37,7 @@ export default class JumperController {
         if (!this.config.get('enable', true)) { return; }
         if (e.contentChanges.length !== 1) { return; }
 
-        const change = e.contentChanges[0];
-        const close = change.text;
+        const close = e.contentChanges[0].text;
 
         if (
             (close === '}' && this.config.get('enableForBraces', true)) ||

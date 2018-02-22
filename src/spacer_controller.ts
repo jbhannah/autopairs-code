@@ -25,8 +25,18 @@ export default class SpacerController {
         this.disposable.dispose();
     }
 
-    private considerSpacingFor(open: string, close: string, line: string) {
-        return this.spacer.trySpace(open, close, line) || this.spacer.tryUnspace(open, close, line);
+    private considerSpacingFor(open: string, close: string, change: string) {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor || !editor.selection.isEmpty) { return; }
+
+        const position = editor.selection.active;
+        const line = editor.document.lineAt(position.line).text;
+
+        if (change === '' && this.spacer.shouldUnspace(open, close, line, position.character)) {
+            this.spacer.unspace(editor);
+        } else if (change === ' ' && this.spacer.shouldSpace(open, close, line, position.character)) {
+            this.spacer.space(editor);
+        }
     }
 
     private getConfig(): vscode.WorkspaceConfiguration {
@@ -39,28 +49,20 @@ export default class SpacerController {
 
     private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
         if (!this.config.get('enable', true)) { return; }
+        if (e.contentChanges.length !== 1) { return; }
 
-        if (e.contentChanges.length < 1) { return; }
-
-        const change = e.contentChanges[0];
-        if (change.text !== '' && change.text !== ' ') { return; }
-
-        const editor = vscode.window.activeTextEditor;
-        if (!editor || !editor.selection.isEmpty) { return; }
-
-        const position = editor.selection.active;
-        const line = editor.document.lineAt(position.line).text;
+        const change = e.contentChanges[0].text;
 
         if (this.config.get('enableForBraces', true)) {
-            this.considerSpacingFor('{', '}', line);
+            this.considerSpacingFor('{', '}', change);
         }
 
         if (this.config.get('enableForBrackets', true)) {
-            this.considerSpacingFor('[', ']', line);
+            this.considerSpacingFor('[', ']', change);
         }
 
         if (this.config.get('enableForParentheses', true)) {
-            this.considerSpacingFor('(', ')', line);
+            this.considerSpacingFor('(', ')', change);
         }
     }
 }

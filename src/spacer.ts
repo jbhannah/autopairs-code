@@ -1,56 +1,44 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { getPosition, setSelection } from './util';
 
 export default class Spacer {
     dispose () {}
 
-    public trySpace(open: string, close: string, line: string): boolean {
-        const position = getPosition();
-        if (!position) { return false; }
-
-        const textBefore = line.slice(Math.max(position.character - 1, 0), position.character + 1);
+    public shouldSpace(open: string, close: string, line: string, character: number): boolean {
+        const textBefore = line.slice(Math.max(character - 1, 0), character + 1);
         if (textBefore !== `${open} `) { return false; }
 
-        const textAfter = line.slice(position.character + 1, position.character + 2);
+        const textAfter = line.slice(character + 1, character + 2);
         if (textAfter !== close) { return false; }
 
-        this.space(position);
         return true;
     }
 
-    public tryUnspace(open: string, close: string, line: string): boolean {
-        const position = getPosition();
-        if (!position) { return false; }
-
-        const textBefore = line.slice(Math.max(position.character - 2, 0), Math.max(position.character - 1, 0));
+    public shouldUnspace(open: string, close: string, line: string, character: number): boolean {
+        const textBefore = line.slice(Math.max(character - 2, 0), Math.max(character - 1, 0));
         if (textBefore !== open) { return false; }
 
-        const textAfter = line.slice(Math.max(position.character - 1, 0), position.character + 1);
+        const textAfter = line.slice(Math.max(character - 1, 0), character + 1);
         if (textAfter !== ` ${close}`) { return false; }
 
-        this.unspace(position);
         return true;
     }
 
-    private space(position: vscode.Position) {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) { return; }
+    public space(editor: vscode.TextEditor) {
+        const position = editor.selection.active.translate(0, 1);
+        const range = new vscode.Range(position, position);
 
-        const range = new vscode.Range(position.line, position.character + 1, position.line, position.character + 1);
-
-        editor.edit(edit => edit.replace(range, " "));
-        setSelection(editor, position.line, position.character + 1);
+        editor.edit(edit => edit.replace(range, ' '));
+        editor.selection = new vscode.Selection(position, position);
     }
 
-    private unspace(position: vscode.Position) {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) { return; }
+    public unspace(editor: vscode.TextEditor) {
+        const position = editor.selection.active;
+        const prevPosition = position.translate(0, -1);
+        const range = new vscode.Range(prevPosition, position);
 
-        const range = new vscode.Range(position.line, position.character - 1, position.line, position.character);
-
-        editor.edit(edit => edit.replace(range, ""));
-        setSelection(editor, position.line, position.character - 1);
+        editor.edit(edit => edit.replace(range, ''));
+        editor.selection = new vscode.Selection(prevPosition, prevPosition);
     }
 }
