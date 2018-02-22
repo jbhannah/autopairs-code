@@ -22,11 +22,15 @@
         "commands": [
             {
                 "command": "autopairs-code.toggleAutoPairs",
-                "title": "Toggle AutoPairs"
+                "title": "AutoPairs: Toggle AutoPairs"
+            },
+            {
+                "command": "autopairs-code.toggleAutoPairsJumping",
+                "title": "AutoPairs: Toggle jumping over closing bracket"
             },
             {
                 "command": "autopairs-code.toggleAutoPairsSpacing",
-                "title": "Toggle AutoPairs bracket spacing"
+                "title": "AutoPairs: Toggle bracket spacing"
             }
         ],
         "configuration": {
