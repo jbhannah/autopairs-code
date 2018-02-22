@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased (v0.2.0)
+## v0.2.0
 
 - Add jumping over whitespace and closing bracket when typing a closing bracket
   (#2).
