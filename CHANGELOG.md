@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased (v0.2.1)
+## v0.2.1
 
 - Fix jumping too far over closing bracket on the same line (#9).
 
