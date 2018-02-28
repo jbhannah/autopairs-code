@@ -1,6 +1,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { PAIRS } from './pairs';
 import Spacer from './spacer';
 
 export default class SpacerController {
@@ -25,16 +26,16 @@ export default class SpacerController {
         this.disposable.dispose();
     }
 
-    private considerSpacingFor(open: string, close: string, change: string) {
+    private considerSpacingFor(pair: vscode.CharacterPair, change: string) {
         const editor = vscode.window.activeTextEditor;
         if (!editor || !editor.selection.isEmpty) { return; }
 
         const position = editor.selection.active;
         const line = editor.document.lineAt(position.line).text;
 
-        if (change === '' && this.spacer.shouldUnspace(open, close, line, position.character)) {
+        if (change === '' && this.spacer.shouldUnspace(pair, line, position.character)) {
             this.spacer.unspace(editor);
-        } else if (change === ' ' && this.spacer.shouldSpace(open, close, line, position.character)) {
+        } else if (change === ' ' && this.spacer.shouldSpace(pair, line, position.character)) {
             this.spacer.space(editor);
         }
     }
@@ -54,15 +55,15 @@ export default class SpacerController {
         const change = e.contentChanges[0].text;
 
         if (this.config.get('enableForBraces', true)) {
-            this.considerSpacingFor('{', '}', change);
+            this.considerSpacingFor(PAIRS.BRACES, change);
         }
 
         if (this.config.get('enableForBrackets', true)) {
-            this.considerSpacingFor('[', ']', change);
+            this.considerSpacingFor(PAIRS.BRACKETS, change);
         }
 
         if (this.config.get('enableForParentheses', true)) {
-            this.considerSpacingFor('(', ')', change);
+            this.considerSpacingFor(PAIRS.PARENTHESES, change);
         }
     }
 }

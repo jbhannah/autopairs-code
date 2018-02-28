@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 export default class Spacer {
     dispose () {}
 
-    public shouldSpace(open: string, close: string, line: string, character: number): boolean {
+    public shouldSpace([open, close]: vscode.CharacterPair, line: string, character: number): boolean {
         const textBefore = line.slice(Math.max(character - 1, 0), character + 1);
         if (textBefore !== `${open} `) { return false; }
 
@@ -15,7 +15,7 @@ export default class Spacer {
         return true;
     }
 
-    public shouldUnspace(open: string, close: string, line: string, character: number): boolean {
+    public shouldUnspace([open, close]: vscode.CharacterPair, line: string, character: number): boolean {
         const textBefore = line.slice(Math.max(character - 2, 0), Math.max(character - 1, 0));
         if (textBefore !== open) { return false; }
 
