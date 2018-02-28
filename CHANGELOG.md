@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased (v0.2.2)
+## v0.2.2
 
 - Fix deleting non-spaced nested closing brackets (#13).
 
