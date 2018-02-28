@@ -1,9 +1,26 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { PAIRS_BY_CLOSE } from './pairs';
 
 export default class Jumper {
     dispose() {}
+
+    public anyUnmatchedClose(document: vscode.TextDocument, close: string): boolean {
+        const open = PAIRS_BY_CLOSE[close][0];
+        const text = document.getText();
+        let count = 0;
+
+        for (let i = 0; i < text.length; i++) {
+            if (text[i] === open) {
+                count--;
+            } else if (text[i] === close) {
+                count++;
+            }
+        }
+
+        return count > 0;
+    }
 
     public tryJump(close: string): boolean {
         const editor = vscode.window.activeTextEditor;

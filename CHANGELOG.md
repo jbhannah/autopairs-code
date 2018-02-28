@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased (v0.2.2)
+
+- Fix deleting non-spaced nested closing brackets (#13).
+
 ## v0.2.1
 
 - Fix jumping too far over closing bracket on the same line (#9).
