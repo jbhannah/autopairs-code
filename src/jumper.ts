@@ -36,9 +36,9 @@ export default class Jumper {
         if (text.trim().indexOf(close) !== 0) { return false; }
 
         const editRange = new vscode.Range(position, position.translate(0, 1));
-        editor.edit(edit => edit.replace(editRange, ""));
+        editor.edit(edit => edit.replace(editRange, ''));
 
-        const distance = text.replace("\n", "  ").indexOf(close) + 1;
+        const distance = text.replace('\n', '  ').indexOf(close) + 1;
         const start = document.offsetAt(position);
         const jumpTo = document.positionAt(start + distance);
 

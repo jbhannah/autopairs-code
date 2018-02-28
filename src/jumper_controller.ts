@@ -2,6 +2,7 @@
 
 import * as vscode from 'vscode';
 import Jumper from './jumper';
+import { PAIRS } from './pairs';
 
 export default class JumperController {
     private config: vscode.WorkspaceConfiguration;
@@ -41,9 +42,9 @@ export default class JumperController {
 
         if (
             (
-                (close === '}' && this.config.get('enableForBraces', true)) ||
-                (close === ']' && this.config.get('enableForBrackets', true)) ||
-                (close === ')' && this.config.get('enableForParentheses', true))
+                (close === PAIRS.BRACES[1]      && this.config.get('enableForBraces', true)) ||
+                (close === PAIRS.BRACKETS[1]    && this.config.get('enableForBrackets', true)) ||
+                (close === PAIRS.PARENTHESES[1] && this.config.get('enableForParentheses', true))
             ) &&
             this.jumper.anyUnmatchedClose(e.document, close)
         ) {
