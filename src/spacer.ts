@@ -38,7 +38,7 @@ export default class Spacer {
         const prevPosition = position.translate(0, -1);
         const range = new vscode.Range(prevPosition, position);
 
-        editor.edit(edit => edit.replace(range, ''));
+        editor.edit(edit => edit.delete(range));
         editor.selection = new vscode.Selection(prevPosition, prevPosition);
     }
 }
