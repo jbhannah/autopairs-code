@@ -76,7 +76,7 @@ npm install
 code .
 ```
 
-Run the default debug configurations inside VS Code. You local development copy
+Run the default debug configurations inside VS Code. Your local development copy
 will override any version installed from the marketplace.
 
 ## Credits
