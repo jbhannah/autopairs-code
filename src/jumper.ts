@@ -6,7 +6,7 @@ import { PAIRS_BY_CLOSE } from './pairs';
 export default class Jumper {
     dispose() {}
 
-    public anyUnmatchedClose(document: vscode.TextDocument, close: string): boolean {
+    public anyUnmatchedClose({ document, close }: { document: vscode.TextDocument; close: string; }): boolean {
         const open = PAIRS_BY_CLOSE[close][0];
         const text = document.getText();
         let count = 0;

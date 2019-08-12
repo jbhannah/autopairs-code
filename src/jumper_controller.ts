@@ -34,12 +34,12 @@ export default class JumperController {
         this.config = this.getConfig();
     }
 
-    private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
+    private onDidChangeTextDocument({ contentChanges, document }: vscode.TextDocumentChangeEvent) {
         if (!this.config.get('enable', true)) { return; }
-        if (e.contentChanges.length < 1) { return; }
-        if (e.contentChanges.length > 1 && e.contentChanges[0].rangeLength !== 1) { return; }
+        if (contentChanges.length < 1) { return; }
+        if (contentChanges.length > 1 && contentChanges[0].rangeLength !== 1) { return; }
 
-        const close = e.contentChanges[0].text;
+        const close = contentChanges[0].text;
 
         if (
             (
@@ -47,7 +47,7 @@ export default class JumperController {
                 (close === PAIRS.BRACKETS[1]    && this.config.get('enableForBrackets', true)) ||
                 (close === PAIRS.PARENTHESES[1] && this.config.get('enableForParentheses', true))
             ) &&
-            this.jumper.anyUnmatchedClose(e.document, close)
+            this.jumper.anyUnmatchedClose({ document, close })
         ) {
             this.jumper.tryJump(close);
         }

@@ -26,7 +26,7 @@ export default class SpacerController {
         this.disposable.dispose();
     }
 
-    private considerSpacingFor(pair: vscode.CharacterPair, change: string) {
+    private considerSpacingFor({ pair, change }: { pair: vscode.CharacterPair; change: string; }) {
         const editor = vscode.window.activeTextEditor;
         if (!editor || !editor.selection.isEmpty) { return; }
 
@@ -48,22 +48,22 @@ export default class SpacerController {
         this.config = this.getConfig();
     }
 
-    private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
+    private onDidChangeTextDocument({ contentChanges }: vscode.TextDocumentChangeEvent) {
         if (!this.config.get('enable', true)) { return; }
-        if (e.contentChanges.length !== 1) { return; }
+        if (contentChanges.length !== 1) { return; }
 
-        const change = e.contentChanges[0].text;
+        const change = contentChanges[0].text;
 
         if (this.config.get('enableForBraces', true)) {
-            this.considerSpacingFor(PAIRS.BRACES, change);
+            this.considerSpacingFor({ pair: PAIRS.BRACES, change });
         }
 
         if (this.config.get('enableForBrackets', true)) {
-            this.considerSpacingFor(PAIRS.BRACKETS, change);
+            this.considerSpacingFor({ pair: PAIRS.BRACKETS, change });
         }
 
         if (this.config.get('enableForParentheses', true)) {
-            this.considerSpacingFor(PAIRS.PARENTHESES, change);
+            this.considerSpacingFor({ pair: PAIRS.PARENTHESES, change });
         }
     }
 }

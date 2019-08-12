@@ -25,20 +25,20 @@ export default class Spacer {
         return true;
     }
 
-    public space(editor: vscode.TextEditor) {
-        const position = editor.selection.active.translate(0, 1);
+    public space({ selection, edit }: vscode.TextEditor) {
+        const position = selection.active.translate(0, 1);
         const range = new vscode.Range(position, position);
 
-        editor.edit(edit => edit.replace(range, ' '));
-        editor.selection = new vscode.Selection(position, position);
+        edit(e => e.replace(range, ' '));
+        selection = new vscode.Selection(position, position);
     }
 
-    public unspace(editor: vscode.TextEditor) {
-        const position = editor.selection.active;
+    public unspace({ selection, edit }: vscode.TextEditor) {
+        const position = selection.active;
         const prevPosition = position.translate(0, -1);
         const range = new vscode.Range(prevPosition, position);
 
-        editor.edit(edit => edit.delete(range));
-        editor.selection = new vscode.Selection(prevPosition, prevPosition);
+        edit(e => e.delete(range));
+        selection = new vscode.Selection(prevPosition, prevPosition);
     }
 }
