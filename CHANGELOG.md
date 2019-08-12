@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.3.0
+
+- Updated dependencies.
+- Fixed TypeError on an empty array of document change events.
+
 ## v0.2.2
 
 - Fix deleting non-spaced nested closing brackets (#13).

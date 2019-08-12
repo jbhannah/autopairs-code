@@ -2,7 +2,7 @@
     "name": "autopairs-code",
     "displayName": "AutoPairs",
     "description": "AutoPairs-like behavior for VS Code",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "publisher": "jbhannah",
     "license": "MIT",
     "engines": {
