@@ -1,12 +1,23 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import Handler from './handler';
 import { PAIRS_BY_CLOSE } from './pairs';
 
-export default class Jumper {
+export default class Jumper implements Handler {
+    configSectionName = 'jumping';
+
     dispose() {}
 
-    public anyUnmatchedClose({ document, close }: { document: vscode.TextDocument; close: string; }): boolean {
+    public considerHandling({ pair, change }: { pair: vscode.CharacterPair; change: vscode.TextDocumentChangeEvent; }) {
+        const { document, contentChanges: [{ text: close }] } = change;
+
+        if (close === pair[1] && this.anyUnmatchedClose({ document, close })) {
+            this.tryJump(close);
+        }
+    }
+
+    private anyUnmatchedClose({ document, close }: { document: vscode.TextDocument; close: string; }): boolean {
         const open = PAIRS_BY_CLOSE[close][0];
         const text = document.getText();
         let count = 0;
@@ -22,7 +33,7 @@ export default class Jumper {
         return count > 0;
     }
 
-    public tryJump(close: string): boolean {
+    private tryJump(close: string): boolean {
         const editor = vscode.window.activeTextEditor;
         if (!editor || !editor.selection.isEmpty) { return false; }
 

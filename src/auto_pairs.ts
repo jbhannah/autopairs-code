@@ -1,14 +1,15 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import JumperController from './jumper_controller';
-import SpacerController from './spacer_controller';
+import AutoPairsController from './auto_pairs_controller';
+import Jumper from './jumper';
+import Spacer from './spacer';
 
 export default class AutoPairs {
     private config: vscode.WorkspaceConfiguration;
     private disposable: vscode.Disposable;
-    private jumperController: JumperController | null = null;
-    private spacerController: SpacerController | null = null;
+    private jumperController: AutoPairsController<Jumper> | null = null;
+    private spacerController: AutoPairsController<Spacer> | null = null;
 
     constructor() {
         let subscriptions: vscode.Disposable[] = [];
@@ -38,14 +39,14 @@ export default class AutoPairs {
         const config = vscode.workspace.getConfiguration('autopairs-code');
 
         if (config.get('enable', true) && !this.spacerController && config.get('spacing.enable', true)) {
-            this.spacerController = new SpacerController();
+            this.spacerController = new AutoPairsController(new Spacer());
         } else if (this.spacerController && (!config.get('enable', true) || !config.get('spacing.enable', true))) {
             this.spacerController.dispose();
             this.spacerController = null;
         }
 
         if (config.get('enable', true) && !this.jumperController && config.get('jumping.enable', true)) {
-            this.jumperController = new JumperController();
+            this.jumperController = new AutoPairsController(new Jumper);
         } else if (this.jumperController && (!config.get('enable', true) || !config.get('jumping.enable', true))) {
             this.jumperController.dispose();
             this.jumperController = null;
