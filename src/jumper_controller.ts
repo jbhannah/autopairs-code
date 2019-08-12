@@ -36,7 +36,8 @@ export default class JumperController {
 
     private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
         if (!this.config.get('enable', true)) { return; }
-        if (e.contentChanges.length !== 1 && e.contentChanges[0].rangeLength !== 1) { return; }
+        if (e.contentChanges.length < 1) { return; }
+        if (e.contentChanges.length > 1 && e.contentChanges[0].rangeLength !== 1) { return; }
 
         const close = e.contentChanges[0].text;
 

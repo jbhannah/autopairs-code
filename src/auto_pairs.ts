@@ -1,8 +1,8 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import SpacerController from './spacer_controller';
 import JumperController from './jumper_controller';
+import SpacerController from './spacer_controller';
 
 export default class AutoPairs {
     private config: vscode.WorkspaceConfiguration;
