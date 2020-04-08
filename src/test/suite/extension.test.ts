@@ -206,7 +206,7 @@ suite("Jump test", () => {
         assert.equal(acutalText, expectedText.join('\n'));
     });
 
-    test("Nested same line jump", async () => {
+    test("Same line jump", async () => {
         const text: string[] = [
             "{ a} }  ",
         ];
