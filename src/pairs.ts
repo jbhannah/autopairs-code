@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 
-const BRACES: vscode.CharacterPair = ['{', '}'];
+export const BRACES: vscode.CharacterPair = ['{', '}'];
 const BRACKETS: vscode.CharacterPair = ['[', ']'];
 const PARENTHESES: vscode.CharacterPair = ['(', ')'];
 
