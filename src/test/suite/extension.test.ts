@@ -149,13 +149,12 @@ suite("Jump test", () => {
         assert.equal(jumped, true);
 
         const newPos = editor.selection.active;
-        const expected = new vscode.Position(2,1);
+        const expected = new vscode.Position(1,1);
 
         assert.deepEqual(newPos, expected);
 
         const expectedText: string[] = [
             "{",
-            "",
             "}",
         ];
         const acutalText = document.getText();
@@ -190,14 +189,13 @@ suite("Jump test", () => {
         assert.equal(jumped, true);
 
         const newPos = editor.selection.active;
-        const expected = new vscode.Position(3,5);
+        const expected = new vscode.Position(2,5);
 
         assert.deepEqual(newPos, expected);
 
         const expectedText: string[] = [
             "{",
             "    {",
-            "",
             "    }",
             "}",
         ];

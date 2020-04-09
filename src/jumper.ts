@@ -42,9 +42,10 @@ export default class Jumper implements Handler {
 
         const lineRange = document.lineAt(closeRange.end.line).range;
         const line = document.getText(lineRange);
+        const emptyLine = line.trim() === close;
 
         let position = editor.selection.active;
-        if (line.trim() === close) {
+        if (emptyLine) {
             position = new vscode.Position(position.line, line.length-1);
         }
 
@@ -60,7 +61,8 @@ export default class Jumper implements Handler {
 
         editor.selection = new vscode.Selection(jumpTo, jumpTo);
 
-        const editRange = new vscode.Range(closeRange.start, closeRange.end.translate(0, 1));
+        const deleteStart = (emptyLine) ? document.lineAt(closeRange.end.line-1).range.end : closeRange.start;
+        const editRange = new vscode.Range(deleteStart, closeRange.end.translate(0, 1));
         await editor.edit(edit => edit.delete(editRange));
 
         return true;
